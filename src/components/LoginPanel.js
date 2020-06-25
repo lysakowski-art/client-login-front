@@ -1,52 +1,49 @@
 import React, { useState, useEffect } from "react";
-// import LoginInput from "./LoginInput";
-// import PasswordInput from "./PasswordInput";
-import SubmitButton from "./SubmitButton";
 import axios from "axios";
+import LoginInput from "./LoginInput";
+import PasswordInput from "./PasswordInput";
+import SubmitButton from "./SubmitButton";
+
 const LoginPanel = () => {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [values, setValues] = useState({});
-  const [customers, setCustomers] = useState([]);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [values, setValues] = useState({});
 
-  const API_URL = "http://127.0.0.1:8000/someWebsite";
+  const API_URL = "http://127.0.0.1:8000/auth";
 
-  // const handleLoginInput = (loginCallback) => {
-  //   setUsername(loginCallback);
-  // };
+  const handleLoginInput = (loginCallback) => {
+    setUsername(loginCallback);
+  };
 
-  // const handlePasswordInput = (passwordCallback) => {
-  //   setPassword(passwordCallback);
-  // };
+  const handlePasswordInput = (passwordCallback) => {
+    setPassword(passwordCallback);
+  };
 
   const handleSendData = () => {
     axios
-      .get(API_URL)
-      .then((res) => res.json())
-      .then((customerData) => {
-        return setCustomers(customerData);
-      }, console.log("Customers fetched", customers));
+      .post(API_URL, values, { withCredentials: true })
+      .then((res) => {
+        console.log(`status code: ${res.status}`);
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
   };
 
-  // useEffect(() => {
-  //   console.log(customers);
-  // }, [customers]);
-
-  // useEffect(() => {
-  //   setValues({
-  //     login: username,
-  //     password: password,
-  //   });
-  // }, [username, password]);
+  useEffect(() => {
+    setValues({
+      login: username,
+      password: password,
+    });
+  }, [username, password]);
 
   return (
     <>
       <form>
-        {/* <LoginInput username={username} handleLoginInput={handleLoginInput} />
+        <LoginInput username={username} handleLoginInput={handleLoginInput} />
         <PasswordInput
           password={password}
           handlePasswordInput={handlePasswordInput}
-        /> */}
+        />
         <SubmitButton handleSendData={handleSendData} />
       </form>
     </>
