@@ -1,19 +1,30 @@
-import React from "react";
-import { Route, HashRouter, Switch } from "react-router-dom";
-import LoginPanel from "./components/LoginPanel";
-import Home from "./components/Home";
-import Navigation from "./components/Navigation";
+import React, { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Main from "./components/Main";
+import axios from "axios";
 
 const App = () => {
+  const [cookieStatus, setCookieStatus] = useState({});
+  
+  const API_ISCOOKIE = "http://127.0.0.1:8000/cookie";
+
+  useEffect(() => {
+    axios
+      .get(API_ISCOOKIE, { withCredentials: true })
+      .then((res) => {
+         if (res.data) {
+          setCookieStatus(res.data);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  console.log(cookieStatus);
+
   return (
     <>
-      <HashRouter>
-        <Navigation />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/auth" component={LoginPanel} />
-        </Switch>
-      </HashRouter>
+      <Header cookieStatus={cookieStatus} />
+      <br/>
+      <Main cookieStatus={cookieStatus} />
     </>
   );
 };

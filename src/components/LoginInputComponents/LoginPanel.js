@@ -8,6 +8,7 @@ const LoginPanel = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [values, setValues] = useState({});
+  const [temp, setTemp] = useState(false);  
 
   const API_URL = "http://127.0.0.1:8000/auth";
 
@@ -25,6 +26,7 @@ const LoginPanel = () => {
       .then((res) => {
         console.log(`status code: ${res.status}`);
         console.log(res);
+        if(res.status === 200) {setTemp(true)}
       })
       .catch((error) => console.log(error));
   };
@@ -34,7 +36,7 @@ const LoginPanel = () => {
       login: username,
       password: password,
     });
-  }, [username, password]);
+  }, [username, password, temp]);
 
   return (
     <>
@@ -44,7 +46,7 @@ const LoginPanel = () => {
           password={password}
           handlePasswordInput={handlePasswordInput}
         />
-        <SubmitButton handleSendData={handleSendData} />
+        <SubmitButton handleSendData={handleSendData} name='Log In'/>
       </form>
     </>
   );
