@@ -7,11 +7,11 @@ const TypeRegister = (props) => {
     handleTypeInput(e.target.value);
   };
 
-  return (
+const types =["User", "Moderator", "Admin"];
+const listOfOptions = types.map((el, index) => <option key={index} value={el}>{el}</option>)  
+return (
     <select name="Type" value={type} onChange={handleTypeInputChange}>
-      <option value="admin">Admin</option>
-      <option value="moderator">Moderator</option>
-      <option value="user">User</option>
+      {listOfOptions}
     </select>
   );
 };

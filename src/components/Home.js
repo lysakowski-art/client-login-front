@@ -1,15 +1,16 @@
 import React from "react";
-
+import Content from "./Content"
 
 const Home = (props) => {
   const {cookieStatus} = props;
 
+ 
   return (
     <>
      <div>
        Hello my man!
        <br/>  
-       {cookieStatus.typeOfUser === "admin" ? <p>If you can read this quote, have to be Admin</p> : null}
+      <Content typeOfUser={cookieStatus.typeOfUser}/>
      </div>
     </>
   );

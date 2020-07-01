@@ -1,7 +1,7 @@
 import React from "react";
 
 const EmailRegister = (props) => {
-  const { email, handleEmailInput } = props;
+  const { email, handleEmailInput} = props;
   const handleEmailChange = (e) => {
     handleEmailInput(e.target.value);
   };

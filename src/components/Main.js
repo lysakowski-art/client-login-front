@@ -1,12 +1,16 @@
 import React from "react";
 import RegistrationForm from "./RegistrationFormComponents/RegistrationForm";
-import Home from './Home'
+import Home from "./Home";
 
 const Main = (props) => {
-const {cookieStatus} = props;
+  const { cookieStatus, isVisible } = props;
   return (
     <main>
-      {cookieStatus.loggedIn ? <Home cookieStatus={cookieStatus}/> : <RegistrationForm />}
+      {isVisible ? (
+        <Home cookieStatus={cookieStatus} />
+      ) : (
+        <RegistrationForm />
+      )}
     </main>
   );
 };
